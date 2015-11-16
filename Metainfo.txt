@@ -1,3 +1,4 @@
+
 Name of QuantLet: LCPdesign
 
 Published in : 'Unpublished; Theoritically description of Time Varying 
@@ -8,11 +9,11 @@ criterion to choose penalty parameter (lambda). The simulated data contains
 a break point after which the design matrix changes. Plots time series of 
 lambda in LASSO regression. Furthermore, the cardinality of the active set 
 q, the L2-norm of the residuals, the L1-norm of the paramter beta  and the 
-condition number of the squared design matrix (X'X) are plotted.'
+condition number of the squared design matrix (X''X) are plotted.'
 
 Keywords : 'LASSO, lasso shrinkage, L1-norm penalty, change point, bic,
 euclidean norm,regression, simulation, plot, visualization, historical 
-moving window,time-series, estimation,L1-norm, error, beta, multi 
+moving window,time-series, estimation, L1-norm, error, beta, multi 
 dimensional, multivariate normal'
 
 See also : 'MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
@@ -24,8 +25,8 @@ Author : Lenka Zbonakova
 Submitted: 
 
 Example: 
--Lambda
--Cardinality of q
--L2-norm of the residuals
--L1-norm of the beta
--Condition number of (X'X)
+- Lambda
+- Cardinality of q
+- L2-norm of the residuals
+- L1-norm of the beta
+- Condition number of (X'X)

@@ -1,22 +1,24 @@
 
 ![Q_banner](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/banner.png)
 
-## ![qlogo](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/qloqo.png) **LCPdesign**
+## ![qlogo](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/qloqo.png) **TVPvariance**
 
 
 ```yaml
 
-Name of QuantLet: LCPdesign
+Name of QuantLet: TVPvariance
 
 Published in : 'Unpublished; Theoritically description of Time Varying 
 Penalization method.'
 
-Description : 'Performs LASSO regression in a moving window by using BIC 
-criterion to choose penalty parameter (lambda). The simulated data contains 
-a break point after which the design matrix changes. Plots time series of 
-lambda in LASSO regression. Furthermore, the cardinality of the active set 
-q, the L2-norm of the residuals, the L1-norm of the paramter beta  and the 
-condition number of the squared design matrix (X''X) are plotted.'
+Description : 'Performs LASSO regression in a moving window by using BIC criterion to 
+choose penalty parameter (lambda). The simulated data contains a break 
+point after which the variance of the error term changes. Plots time series 
+of lambda in LASSO regression. Furthermore, the cardinality of the active 
+set q, the L2-norm of the residuals, the L1-norm of the parameter beta 
+and the condition number of the squared design matrix [t(X)X] are plotted. 
+All of the plots contain results from a number of simulations and the 
+average over all of them.'
 
 Keywords : 'LASSO, lasso shrinkage, L1-norm penalty, change point, bic,
 euclidean norm,regression, simulation, plot, visualization, historical 
@@ -24,8 +26,7 @@ moving window,time-series, estimation, L1-norm, error, beta, multi
 dimensional, multivariate normal'
 
 See also : 'MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
-SMSlassoridge,quantilelasso, FASTECChinaTemper2008, FASTECSAMCVaR, 
-TEDAS_strategies'
+SMSlassoridge,quantilelasso'
 
 Author : Lenka Zbonakova
 

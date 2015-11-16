@@ -169,7 +169,7 @@ lasso.bic = function(x, y, win) {
 # Simulation setup
 n.obs   = 1000      # no of observations
 n.param = 100       # no of parameters
-n.sim   = 2       # no of simulations
+n.sim   = 100       # no of simulations
 w       = 110       # moving window size 
 seed1   = 20150206  # seed simulation X
 seed2   = 20150602  # seed simulation epsilon

@@ -8,7 +8,7 @@
 
 Name of QuantLet: TVPvariance
 
-Published in : 'Unpublished; Theoritically description of Time Varying 
+Published in : 'Unpublished; Theoretically description of Time Varying 
 Penalization method.'
 
 Description : 'Performs LASSO regression in a moving window by using BIC criterion to 

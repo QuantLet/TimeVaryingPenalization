@@ -1,5 +1,9 @@
-![http://quantnet.wiwi.hu-berlin.de/style/banner.png](http://quantnet.wiwi.hu-berlin.de/style/banner.png)
-## ![qlogo](http://quantnet.wiwi.hu-berlin.de/graphics/quantlogo.png) **TVP**
+
+![Q_banner](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/banner.png)
+
+## ![qlogo](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/qloqo.png) **LCPdesign**
+
+
 ```yaml
 
 Name of QuantLet: LCPdesign
@@ -12,11 +16,11 @@ criterion to choose penalty parameter (lambda). The simulated data contains
 a break point after which the design matrix changes. Plots time series of 
 lambda in LASSO regression. Furthermore, the cardinality of the active set 
 q, the L2-norm of the residuals, the L1-norm of the paramter beta  and the 
-condition number of the squared design matrix (X'X) are plotted.'
+condition number of the squared design matrix (X''X) are plotted.'
 
 Keywords : 'LASSO, lasso shrinkage, L1-norm penalty, change point, bic,
 euclidean norm,regression, simulation, plot, visualization, historical 
-moving window,time-series, estimation,L1-norm, error, beta, multi 
+moving window,time-series, estimation, L1-norm, error, beta, multi 
 dimensional, multivariate normal'
 
 See also : 'MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
@@ -27,19 +31,31 @@ Author : Lenka Zbonakova
 
 Submitted: 
 
+Input: 
+- n.obs   : Number of observations to simulate
+- n.param : Number of parameters to simulate
+- n.sim   : Number of simulations
+- w       : Size of each moving window
+- seed1   : Seed to simulate design matrix X
+- seed2   : Seed to simulate error terms
+
 Example: 
--Lambda
--Cardinality of q
--L2-norm of the residuals
--L1-norm of the beta
--Condition number of (X'X)
+- Lambda
+- Cardinality of q
+- L2-norm of the residuals
+- L1-norm of the beta
+- Condition number of (X'X)
 
 ```
+
+
 ![Picture1](lambda.PNG)
-![Picture1](q.PNG)
-![Picture1](resNorm.PNG)
-![Picture1](betaNorm.PNG)
-![Picture1](X'X.png)
+![Picture2](q.PNG)
+![Picture3](resNorm.PNG)
+![Picture4](betaNorm.PNG)
+![Picture5](X'X.png)
+
+
 ```R
 
 # Clear variables and close windows

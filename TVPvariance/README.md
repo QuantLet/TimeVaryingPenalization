@@ -54,7 +54,7 @@ Example:
 ![Picture2](q.PNG)
 ![Picture3](resNorm.PNG)
 ![Picture4](betaNorm.PNG)
-![Picture5](kappaX'X.png)
+![Picture5](kappaX'X.PNG)
 
 
 ```R

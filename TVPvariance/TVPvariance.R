@@ -1,41 +1,3 @@
-# -----------------------------------------------------------------------------
-# Name of QuantLet: TVPvariance
-# -----------------------------------------------------------------------------
-# Published in: - 
-# -----------------------------------------------------------------------------
-# Description: Performs LASSO regression in a moving window by using BIC criterion to choose penalty 
-#              parameter (lambda). The simulated data contains a break point after which the 
-#              variance of the error term changes. Plots time series of lambda in LASSO regression. 
-#              Furthermore, the cardinality of the active set q, the L2-norm of the residuals, the 
-#              L1-norm of the paramter beta  and the condition number of the squared design matrix 
-#              (X'X) are plotted. 
-# -----------------------------------------------------------------------------
-# Keywords: LASSO, lasso shrinkage, L1-norm penalty, change point, bic, euclidean norm,
-#           regression, simulation, plot, visualization, historical moving window,
-#           time-series, estimation, L1-norm, error, beta, multi dimensional, multivariate normal
-# -----------------------------------------------------------------------------
-# See also: MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, SMSlassoridge,
-#           quantilelasso, FASTECChinaTemper2008, FASTECSAMCVaR, TEDAS_strategies
-# -----------------------------------------------------------------------------
-# Author: Lenka Zbonakova
-# -----------------------------------------------------------------------------
-# Submitted: 09/07/2015
-# -----------------------------------------------------------------------------
-# Input: n.obs   - Number of observations to simulate
-#        n.param - Number of parameters to simulate
-#        n.sim   - Number of simulations
-#        w       - Size of each moving window
-#        seed1   - Seed to simulate design matrix X
-#        seed2   - Seed to simulate error terms
-# -----------------------------------------------------------------------------
-# Example: Time series
-#          1) Lambda
-#          2) Cardinality of q
-#          3) L2-norm of the residuals
-#          4) L1-norm of the beta
-#          5) Condition number of (X'X)
-# -----------------------------------------------------------------------------
-
 # Clear variables and close windows
 rm(list = ls(all = TRUE))
 graphics.off()
@@ -116,8 +78,6 @@ lasso.bic = function(x, y, win) {
       cond.num1     = c(cond.num1, kappa(xwin))
     }
     
-    # xbeta[[j]]      = xbeta1
-    # res[[j]]        = res1
     res.norm        = cbind(res.norm, res.norm1)
     coeff.norm      = cbind(coeff.norm, coeff.norm1)
     lambda.bic      = cbind(lambda.bic, lambda.bic1)
@@ -147,9 +107,7 @@ lasso.bic = function(x, y, win) {
 n.obs   = 1000      # no of observations
 n.param = 100       # no of parameters
 n.sim   = 100       # no of simulations
-w110    = 110       # moving window size (plots)
-w150    = 150
-w200    = 200
+w       = 110       # moving window size 
 seed1   = 20150206  # seed simulation X
 seed2   = 20150602  # seed simulation epsilon
 
@@ -215,12 +173,7 @@ for (i in 1:n.sim){
 }
 
 # Lasso estimation with LARS for moving window of length w 
-out_var110  = lasso.bic(X, Y, w110)
-out_var150  = lasso.bic(X, Y, w150)
-out_var200  = lasso.bic(X, Y, w200)
-out_var     = out_var110
-w           = w110
-
+out_var = lasso.bic(X, Y, w)
 
 # Lambda
 par(mar = c(3, 5, 1, 1))

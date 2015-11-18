@@ -21,12 +21,12 @@ All of the plots contain results from a number of simulations and the
 average over all of them.'
 
 Keywords : 'LASSO, lasso shrinkage, L1-norm penalty, change point, bic,
-euclidean norm,regression, simulation, plot, visualization, historical 
-moving window,time-series, estimation, L1-norm, error, beta, multi 
-dimensional, multivariate normal'
+euclidean-norm, regression, simulation, plot, visualization, historical 
+moving window, time-series, estimation, L1-norm, error, beta, multi-dimensional, 
+multivariate normal'
 
 See also : 'MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
-SMSlassoridge,quantilelasso'
+SMSlassoridge, quantilelasso'
 
 Author : Lenka Zbonakova
 

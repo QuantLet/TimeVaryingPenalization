@@ -45,7 +45,7 @@ Example:
 - Cardinality of q
 - L2-norm of the residuals
 - L1-norm of the beta
-- Condition number of (X'X)
+- Condition number of the squared design matrix [t(X)X]
 
 ```
 

@@ -1,3 +1,4 @@
+
 # Clear variables and close windows
 rm(list = ls(all = TRUE))
 graphics.off()
@@ -296,4 +297,3 @@ axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t =")
      cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
-

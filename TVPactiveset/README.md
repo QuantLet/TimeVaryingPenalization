@@ -1,19 +1,19 @@
 
 ![Q_banner](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/banner.png)
 
-## ![qlogo](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/qloqo.png) **TVPdesign**
+## ![qlogo](https://github.com/QuantLet/Styleguide-and-Validation-procedure/blob/master/pictures/qloqo.png) **TVPactiveset**
 
 
 ```yaml
 
-Name of QuantLet: TVPdesign
+Name of QuantLet: TVPactiveset
 
 Published in : 'Unpublished; Theoretically description of Time Varying 
 Penalization method.'
 
 Description : 'Performs LASSO regression in a moving window by using BIC criterion to 
 choose penalty parameter (lambda). The simulated data contains a break 
-point after which the condition number of a matrix [t(X)X] changes. Plots time series 
+point after which the cardinality of active set q changes. Plots time series 
 of lambda in LASSO regression. Furthermore, the cardinality of the active 
 set q, the L2-norm of the residuals, the L1-norm of the parameter beta 
 and the condition number of the squared design matrix [t(X)X] are plotted. 
@@ -25,7 +25,7 @@ euclidean norm,regression, simulation, plot, visualization, historical
 moving window,time-series, estimation, L1-norm, error, beta, multi 
 dimensional, multivariate normal'
 
-See also : ‘TVPactiveset, TVPbetanorm, TVPvariance, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
+See also : 'TVPbetanorm, TVPdesign, TVPvariance, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
 SMSlassoridge,quantilelasso'
 
 Author : Lenka Zbonakova
@@ -169,23 +169,25 @@ lasso.bic = function(x, y, win) {
 # Simulation setup
 n.obs   = 1000      # no of observations
 n.param = 100       # no of parameters
-n.sim   = 2       # no of simulations
+n.sim   = 100       # no of simulations
 w       = 110       # moving window size 
 seed1   = 20150206  # seed simulation X
 seed2   = 20150602  # seed simulation epsilon
 
 # Check if n.obs is even (otherwise add one observation)
 if(n.obs %% 2 == 1) n.obs = n.obs + 1 ;
-n.cp  = n.obs/2
 
-# True beta coefficients
+# True beta coefficients with change of q in t = n.cp
 tmp1  = c(1, 1, 1, 1, 1)
-tmp2  = rep(0, 95)
-b     = c(tmp1, tmp2)
+tmp2  = rep(0, n.param - length(tmp1))
+b1    = c(tmp1, tmp2)
 
-# Simulation of the design matrix with change of condition number after n.cp of observations
-mu1   = rep(0, n.param)
-mu2   = rep(15, n.param)
+tmp3  = c(1, 1, 1)
+tmp4  = rep(0, n.param - length(tmp3))
+b2    = c(tmp3, tmp4)
+
+# Simulation of the design matrix
+mu    = rep(0, n.param)
 r     = 0.5
 Sigma = matrix(0, nrow = n.param, ncol = n.param)
 
@@ -202,156 +204,159 @@ for (i in 1:n.param) {
 X = list()
 set.seed(seed1)
 for (i in 1:n.sim){
-  X1     = mvrnorm(n = n.cp, mu1, Sigma)
-  X2     = rmvt(n = (n.obs - n.cp), sigma = Sigma, df = 2)
-  X[[i]] = rbind(X1, X2)
-} 
+  X[[i]] = mvrnorm(n = n.obs, mu, Sigma)
+}  
 
-# Simulation of the error term 
+# Simulation of the error term for t = 1, ..., n.obs
 eps  = list()
 set.seed(seed2)
 for (i in 1:n.sim){
   eps[[i]] = rnorm(n.obs, mean = 0, sd = 0.1)
 } 
 
-# Computation of Y
-Y    = list()
+# Computation of Y for t = 1, ..., n.cp
+n.cp  = n.obs/2
+
+Y1    = list()
 for (i in 1:n.sim){
   Y.tmp = numeric(0)
-  for (j in 1:n.obs){
-    Y.tmp = c(Y.tmp, b %*% X[[i]][j, ] + eps[[i]][j])
+  for (j in 1:n.cp){
+    Y.tmp = c(Y.tmp, b1 %*% X[[i]][j, ] + eps[[i]][j])
   }
-  Y[[i]] = Y.tmp
+  Y1[[i]] = Y.tmp
+}
+
+# Computation of Y after t = n.cp
+Y2    = list()
+for (i in 1:n.sim){
+  Y.tmp = numeric(0)
+  for (j in (n.cp + 1):n.obs){
+    Y.tmp = c(Y.tmp, b2 %*% X[[i]][j, ] + eps[[i]][j])
+  }
+  Y2[[i]] = Y.tmp
+}
+
+Y   = list()
+for (i in 1:n.sim){
+  Y[[i]] = c(Y1[[i]],Y2[[i]])
 }
 
 # Lasso estimation with LARS for moving window of length w 
-out_des = lasso.bic(X, Y, w)
+out_q = lasso.bic(X, Y, w)
 
 # Lambda
 par(mar = c(3, 5, 1, 1))
-plot(out_des$lambda.bic[, 1], type = "l",  col = alpha("darkblue", 0.05), axes = FALSE, 
+plot(out_q$lambda.bic[, 1], type = "l",  col = alpha("darkblue", 0.05), axes = FALSE, 
      xlab = "", frame = TRUE, cex.main = 1.5, ylab = expression(paste(lambda)),
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$lambda.bic), max(out_des$lambda.bic)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$lambda.bic), max(out_q$lambda.bic)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 for (i in 2:n.sim) {
-  tmp = out_des$lambda.bic[, i]
+  tmp = out_q$lambda.bic[, i]
   lines(tmp, col = alpha("darkblue", 0.05))
 }
-lines(out_des$mean.lb, col = "red3")
+lines(out_q$mean.lb, col = "red3")
 
-plot(out_des$mean.lb, type = "l",  col = "red3", axes = FALSE, 
-     frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average ", lambda)),
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$mean.lb), max(out_des$mean.lb)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$mean.lb, type = "l",  col = "red3", axes = FALSE, 
+     xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average ", lambda)),
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$mean.lb), max(out_q$mean.lb)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 
 # Cardinality of active set q
 par(mar = c(3, 5, 1, 1))
-plot(out_des$act.set[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, 
-     xlab = "", frame = TRUE, cex.main = 1.5, ylab = "q", 
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$act.set), max(out_des$act.set)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$act.set[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, xlab = "", frame = TRUE, cex.main = 1.5,
+     ylab = "q", xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$act.set), max(out_q$act.set)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 for (i in 2:n.sim) {
-  tmp = out_des$act.set[, i]
+  tmp = out_q$act.set[, i]
   lines(tmp, col = alpha("darkblue", 0.05))
 }
-lines(out_des$mean.as, col = "red3")
+lines(out_q$mean.as, col = "red3")
 
-plot(out_des$mean.as, type = "l",  col = "red3", axes = FALSE, 
-     frame = TRUE, cex.main = 1.5, ylab = "Average q",
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$mean.as), max(out_des$mean.as)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), 
-     labels = c("0", paste(expression("t ="), n.cp), n.obs), cex.axis = 1.2)
+plot(out_q$mean.as, type = "l",  col = "red3", axes = FALSE, 
+     xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = "Average q",
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$mean.as), max(out_q$mean.as)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 
 # L2-norm of residuals 
 par(mar = c(3, 5, 1, 1))
-plot(out_des$res.norm[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, 
-     xlab = "", frame = TRUE, cex.main = 1.5, ylab = expression(paste("RSS" ^ {1/2})), 
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$res.norm), max(out_des$res.norm)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$res.norm[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, xlab = "", 
+     frame = TRUE, cex.main = 1.5, ylab = expression(paste("RSS" ^ {1/2})), 
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$res.norm), max(out_q$res.norm)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 for (i in 2:n.sim) {
-  tmp = out_des$res.norm[, i]
+  tmp = out_q$res.norm[, i]
   lines(tmp, col = alpha("darkblue", 0.05))
 }
-lines(out_des$mean.rn, col = "red3")
+lines(out_q$mean.rn, col = "red3")
 
-plot(out_des$mean.rn, type = "l",  col = "red3", axes = FALSE, 
-     frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average RSS" ^ {1/2})),
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$mean.rn), max(out_des$mean.rn)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$mean.rn, type = "l",  col = "red3", axes = FALSE, 
+     xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average RSS" ^ {1/2})),
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$mean.rn), max(out_q$mean.rn)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 
 # L1-norm of Beta
 par(mar = c(3, 5, 1, 1))
-plot(out_des$coeff.norm[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, 
-     xlab = "", frame = TRUE, cex.main = 1.5, 
-     ylab = expression(paste("||", hat(beta), "|| " [1])), 
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$coeff.norm), max(out_des$coeff.norm)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$coeff.norm[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, xlab = "", 
+     frame = TRUE, cex.main = 1.5, ylab = expression(paste("||", hat(beta), "|| " [1])), 
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$coeff.norm), max(out_q$coeff.norm)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 for (i in 2:n.sim) {
-  tmp = out_des$coeff.norm[, i]
+  tmp = out_q$coeff.norm[, i]
   lines(tmp, col = alpha("darkblue", 0.05))
 }
-lines(out_des$mean.cn, col = "red3")
+lines(out_q$mean.cn, col = "red3")
 
-plot(out_des$mean.cn, type = "l",  col = "red3", axes = FALSE, 
-     frame = TRUE, cex.main = 1.5, 
-     ylab = expression(paste("Average ||", hat(beta), "|| " [1])),
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$mean.cn), max(out_des$mean.cn)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$mean.cn, type = "l",  col = "red3", axes = FALSE, 
+     xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average ||", hat(beta), "|| " [1])),
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$mean.cn), max(out_q$mean.cn)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 
 # Condition number of X'X
 par(mar = c(3, 5, 1, 1))
-plot(out_des$cond.num[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, 
-     xlab = "", frame = TRUE, cex.main = 1.5, ylab = expression(paste(kappa, " of X'X")), 
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$cond.num), max(out_des$cond.num)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), 
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$cond.num[, 1], type = "l", col = alpha("darkblue", 0.05), axes = FALSE, xlab = "", 
+     frame = TRUE, cex.main = 1.5, ylab = expression(paste(kappa, " of X'X")), 
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$cond.num), max(out_q$cond.num)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
 for (i in 2:n.sim) {
-  tmp = out_des$cond.num[, i]
+  tmp = out_q$cond.num[, i]
   lines(tmp, col = alpha("darkblue", 0.05))
 }
-lines(out_des$mean.k, col = "red3")
+lines(out_q$mean.k, col = "red3")
 
-plot(out_des$mean.k, type = "l",  col = "red3", axes = FALSE, 
-     frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average ", kappa, " of X'X")),
-     xlim = c(-(w + 10), (n.obs - w + 10)), 
-     ylim = c(min(out_des$mean.k), max(out_des$mean.k)))
-axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp),
-                                                    n.obs), cex.axis = 1.2)
+plot(out_q$mean.k, type = "l",  col = "red3", axes = FALSE, 
+     xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = expression(paste("Average ", kappa, " of X'X")),
+     xlim = c(-(w + 10), (n.obs - w + 10)), ylim = c(min(out_q$mean.k), max(out_q$mean.k)))
+axis(1, at = c(-w, n.cp - w, n.obs - w), labels = c("0", paste(expression("t ="), n.cp), n.obs),
+     cex.axis = 1.2)
 axis(2, cex.axis = 1.2)
 abline(v = (n.cp - w), lty = 3)
+
 
 ```

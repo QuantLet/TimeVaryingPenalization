@@ -25,7 +25,7 @@ euclidean norm,regression, simulation, plot, visualization, historical
 moving window,time-series, estimation, L1-norm, error, beta, multi 
 dimensional, multivariate normal'
 
-See also : ‘TVPbetanorm, TVPdesign, TVPvariance, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
+See also : 'TVPbetanorm, TVPdesign, TVPvariance, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
 SMSlassoridge,quantilelasso'
 
 Author : Lenka Zbonakova

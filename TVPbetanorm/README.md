@@ -50,11 +50,11 @@ Example:
 ```
 
 
-![Picture1](lambda.PNG)
-![Picture2](q.PNG)
-![Picture3](resNorm.PNG)
-![Picture4](betaNorm.PNG)
-![Picture5](kappaX'X.PNG)
+![Picture1](lambda.png)
+![Picture2](q.png)
+![Picture3](resNorm.png)
+![Picture4](betaNorm.png)
+![Picture5](kappaX'X.png)
 
 
 ```R

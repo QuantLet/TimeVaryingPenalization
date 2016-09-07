@@ -26,7 +26,7 @@ historical moving window, time-series, estimation, L1-norm, error, beta,
 multi-dimensional, multivariate normal'
 
 See also : 'TVPactiveset, TVPdesign, TVPvariance, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
-SMSlassoridge,quantilelasso'
+SMSlassoridge, quantilelasso'
 
 Author : Lenka Zbonakova
 

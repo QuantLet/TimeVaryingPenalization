@@ -1,12 +1,12 @@
 
-Name of QuantLet: TVPvariance
+Name of QuantLet: TVPbetanorm
 
 Published in : 'Unpublished; Theoretically description of Time Varying 
 Penalization method.'
 
 Description : 'Performs LASSO regression in a moving window by using BIC criterion to 
 choose penalty parameter (lambda). The simulated data contains a break 
-point after which the variance of the error term changes. Plots time series 
+point after which the parameter beta changes. Plots time series 
 of lambda in LASSO regression. Furthermore, the cardinality of the active 
 set q, the L2-norm of the residuals, the L1-norm of the parameter beta 
 and the condition number of the squared design matrix [t(X)X] are plotted. 
@@ -18,7 +18,7 @@ euclidean-norm, regression, simulation, plot, visualization,
 historical moving window, time-series, estimation, L1-norm, error, beta,
 multi-dimensional, multivariate normal'
 
-See also : 'MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
+See also : 'TVPactiveset, TVPdesign, TVPvariance, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
 SMSlassoridge, quantilelasso'
 
 Author : Lenka Zbonakova

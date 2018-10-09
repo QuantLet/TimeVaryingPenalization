@@ -3,12 +3,21 @@ Name of QuantLet: TVRPfrm
 
 Published in : submitted to N/A
 
-Description : 'Performs the Lasso regression with two distinct algorithms. The first one uses moving window method and the Bayesian information criterion (BIC) or the generalized cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is called the real-time adaptive penalization (RAP). The input data are daily logarithmic stock returns of 100 largest U.S. financial companies listed on NASDAQ. In the fitting procedure, each of the selected companies is taken as
-a dependent variable and is regressed by means of the Lasso regression on the remaining ones. The code plots the time series of the average penalization parameter, lambda.'
+Description : 'Performs the Lasso regression with two distinct algorithms. The first one 
+uses moving window method and the Bayesian information criterion (BIC) or the generalized 
+cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is 
+called the real-time adaptive penalization (RAP). The input data are daily logarithmic 
+stock returns of 100 largest U.S. financial companies listed on NASDAQ. In the fitting 
+procedure, each of the selected companies is taken as
+a dependent variable and is regressed by means of the Lasso regression on the remaining 
+ones. The code plots the time series of the average penalization parameter, lambda.'
 
-Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, adaptive penalization, regression, plot, moving window, time-series, stock return'
+Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, 
+adaptive penalization, regression, plot, moving window, time-series, stock return'
 
-See also : 'TVRPchangeSQR, TVRPchangeB, TVRPfmri, XFGTVP_BetaChange, XFGTVP_FRM, XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, SMSlassoridge, quantilelasso'
+See also : 'TVRPchangeSQR, TVRPchangeB, TVRPfmri, XFGTVP_BetaChange, XFGTVP_FRM, 
+XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
+SMSlassoridge, quantilelasso'
 
 Author : Lenka Zboňáková
 

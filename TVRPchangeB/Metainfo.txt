@@ -1,22 +1,29 @@
-
 Name of QuantLet: TVRPchangeB
 
 Published in : submitted to N/A
 
-Description : 'Performs the Lasso regression with two distinct algorithms. The first one uses moving window method and the Bayesian information criterion (BIC) or the generalized cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is called the real-time adaptive penalization (RAP). The simulated data contains a break point after which the parameter
-beta changes. The code plots the time series of the average lambda in the Lasso regression. The average values are taken over the specified number of simulations.'
+Description : 'Performs the Lasso regression with two distinct algorithms. The first one 
+uses moving window method and the Bayesian information criterion (BIC) or the generalized 
+cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is 
+called the real-time adaptive penalization (RAP). The simulated data contains a break 
+point after which the parameter
+beta changes. The code plots the time series of the average lambda in the Lasso regression. 
+The average values are taken over the specified number of simulations.'
 
-Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, adaptive penalization, regression,
-simulation, plot, moving window, time-series, beta, linear model'
+Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, 
+adaptive penalization, regression, simulation, plot, moving window, time-series, beta, 
+linear model'
 
-See also : 'TVRPchangeSQR, TVRPfrm, TVRPfmri, XFGTVP_BetaChange, XFGTVP_FRM, XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, SMSlassoridge, quantilelasso'
+See also : 'TVRPchangeSQR, TVRPfrm, TVRPfmri, XFGTVP_BetaChange, XFGTVP_FRM, 
+XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
+SMSlassoridge, quantilelasso'
 
 Author : Lenka Zboňáková
 
 Submitted : 9 October 2018 by Lenka Zboňáková
 
 Input: 
-- n.obs :   Number of observations to simulate
+  - n.obs :   Number of observations to simulate
 - n.param : Number of parameters to simulate
 - n.sim :   Number of scenarios
 - w :       Size of the moving window

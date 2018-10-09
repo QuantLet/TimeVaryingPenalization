@@ -1,14 +1,27 @@
 
+
 Name of QuantLet: TVRPchangeSQR
 
 Published in : submitted to N/A
 
-Description : 'Performs the Lasso regression with two distinct algorithms. The first one uses moving window method and the Bayesian information criterion (BIC) or the generalized cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is called the real-time adaptive penalization (RAP). The simulated data contains a break point, after which a combination of changes of the variance of the error term, the correlation structure of the design matrix
-and/or the number of active parameters, q, in the model is simulated. The code plots the relative changes of the Lasso parameter in dependence on the relative changes in the specific model parameters and a time series of the average lambda in the Lasso regression. The average values are taken over the specified number of simulations.'
+Description : 'Performs the Lasso regression with two distinct algorithms. The first one 
+uses moving window method and the Bayesian information criterion (BIC) or the generalized 
+cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is 
+called the real-time adaptive penalization (RAP). The simulated data contains a break 
+point, after which a combination of changes of the variance of the error term, the 
+correlation structure of the design matrix and/or the number of active parameters, q, 
+in the model is simulated. The code plots the relative changes of the Lasso parameter in 
+dependence on the relative changes in the specific model parameters and a time series of 
+the average lambda in the Lasso regression. The average values are taken over 
+the specified number of simulations.'
 
-Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, adaptive penalization, regression, simulation, plot, moving window, time-series, beta, linear model, heatmap’
+Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, 
+adaptive penalization, regression, simulation, plot, moving window, time-series, beta, 
+linear model, heatmap’
 
-See also : 'TVRPchangeB, TVRPchangefmri, TVRPfrm, XFGTVP_BetaChange, XFGTVP_FRM, XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, SMSlassoridge, quantilelasso'
+See also : 'TVRPchangeB, TVRPchangefmri, TVRPfrm, XFGTVP_BetaChange, XFGTVP_FRM, 
+XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
+SMSlassoridge, quantilelasso'
 
 Author : Lenka Zboňáková
 

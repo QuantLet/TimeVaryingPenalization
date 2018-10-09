@@ -20,10 +20,13 @@ registerDoParallel(cl)
 getDoParWorkers()
 
 # Computation setup
-n.firm  = 100    # Number of companies to include in computation (maximum is 200)
-w       = 63     # Length of moving windows
-w.rap   = 53     # Burn-in period for RAP algorithm
-m.type  = "BIC"  # Method of choosing lambda (BIC or GCV - leads to overfit)
+n.firm      = 100    # Number of companies to include in computation (maximum is 200)
+w           = 63     # Length of moving windows
+w.rap       = 53     # Burn-in period for RAP algorithm
+m.type      = "BIC"  # Method of choosing lambda (BIC or GCV - leads to overfit)
+r.factor    = 0.95   # Forgetting factor for RAP
+s.size      = 0.025  # Step-size parameter for RAP
+lambda.init = 0.3    # Inital lambda value for RAP
 
 # Load data: 100 companies
 tmpdata = read.csv("100_firms_returns_and_scaled_macro_2018-08-13.csv",sep=",") # FRM data
@@ -70,8 +73,7 @@ at.tmp = c(grep("2008", dates)[1] - w, grep("2009", dates)[1] - w,
 # Plot time series of lambda both for LARS and RAP
 plot(norm.lars, type = "l",  col = "black", axes = FALSE, 
      xlab = "Year", frame = TRUE, cex.main = 1.5, 
-     ylab = expression(paste("Average ", lambda)),
-     cex.lab = 1.2, lwd = 1)
+     ylab = expression(paste("Average ", lambda)), cex.lab = 1.2, lwd = 1)
 axis(1, cex.axis = 1, labels = c(2008:2018), at = at.tmp)
 axis(2, cex.axis = 1)
 lines(norm.rap, col = "blue", lty = 2, lwd = 1.5)

@@ -1,41 +1,28 @@
 
 Name of QuantLet: TVRPchangeB
 
-Published in : 'Unpublished; Theoretically description of Time Varying 
-Penalization method.'
+Published in : submitted to N/A
 
-Description : 'Performs LASSO regression in a moving window by using BIC criterion to 
-choose penalty parameter (lambda). The simulated data contains a break 
-point after which the cardinality of active set q changes. Plots time series 
-of lambda in LASSO regression. Furthermore, the cardinality of the active 
-set q, the L2-norm of the residuals, the L1-norm of the parameter beta 
-and the condition number of the squared design matrix [t(X)X] are plotted. 
-All of the plots contain results from a number of simulations and the 
-average over all of them.'
+Description : 'Performs the Lasso regression with two distinct algorithms. The first one uses moving window method and the Bayesian information criterion (BIC) to calibrate the penalty parameter (lambda), and the second is called the real-time adaptive penalization (RAP). The simulated data contains a break point after which the parameter
+beta changes. The code plots the time series of average lambda in the Lasso regression. The average values are taken over the specified number of simulations.'
 
-Keywords : 'LASSO, lasso shrinkage, L1-norm penalty, change point, bic,
-euclidean-norm, regression, simulation, plot, visualization,
-historical moving window, time-series, estimation, L1-norm, error, beta,
-multi-dimensional, multivariate normal'
+Keywords : ‘Lasso, shrinkage, L1-norm penalty, change point, bic, adaptive penalization, regression,
+simulation, plot, moving window, time-series, beta, linear model’
 
-See also : 'TVPvariance, TVPdesign, MVAgrouplasso, MVAlassocontour, MVAlassoregress, 
-SMSlassocar, SMSlassoridge, quantilelasso'
+See also : ‘TVRPchangeSQR, TVRPfrm, TVRPfmri, XFGTVP_BetaChange, XFGTVP_FRM, XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, SMSlassoridge, quantilelasso'
 
-Author : Lenka Zbonakova
+Author : Lenka Zboňáková
 
-Submitted: 
+Submitted : 9 October 2018 by Lenka Zboňáková
 
 Input: 
-- n.obs   : Number of observations to simulate
+- n.obs :   Number of observations to simulate
 - n.param : Number of parameters to simulate
-- n.sim   : Number of simulations
-- w       : Size of each moving window
-- seed1   : Seed to simulate design matrix X
-- seed2   : Seed to simulate error terms
-
-Example: 
-- Lambda
-- Cardinality of q
-- L2-norm of the residuals
-- L1-norm of the beta
-- Condition number of the squared design matrix [t(X)X]
+- n.sim :   Number of scenarios
+- w :       Size of the moving window
+- w.rap :   Burn-in period for the RAP algorithm
+- seed1 :   Seed to simulate the design matrix X
+- seed2 :   Seed to simulate the error term
+- sd    :   Standard deviation of the error term
+- r     :   Correlation coefficient for the design matrix X
+- m.type:  Type of the method to calibrate lambda (“BIC” or “GCV”)

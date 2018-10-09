@@ -20,11 +20,12 @@ registerDoParallel(cl)
 getDoParWorkers()
 
 # Computation setup
-n.firm  = 4      # Number of companies to include in computation (maximum is 200)
+n.firm  = 100    # Number of companies to include in computation (maximum is 200)
 w       = 63     # Length of moving windows
+w.rap   = 53     # Burn-in period for RAP algorithm
 m.type  = "BIC"  # Method of choosing lambda (BIC or GCV - leads to overfit)
 
-# Load data: 200 companies with 6 macro prudential variables
+# Load data: 100 companies
 tmpdata = read.csv("100_firms_returns_and_scaled_macro_2018-08-13.csv",sep=",") # FRM data
 data    = subset(tmpdata, select = c(2:(n.firm + 1)))
 dates   = tmpdata[, 1]
@@ -41,14 +42,13 @@ n.parallel = sum(n.appcores != 0)
 Sys.time()
 out_tmp    = foreach(i = 1:n.parallel, .packages = c("lars")) %dopar% par.lassoapp(i)  
 Sys.time()
-out_lars   = res.app(n.parallel, out_tmp)      # Collect results from cores
+out_lars   = res.app(n.parallel, out_tmp)      # Collect results from the cores
 
 # RAP: Lasso estimation 
-w.rap   = 53
 Sys.time()
 out_tmp   = foreach(i = 1:n.parallel, .packages = c("lars", "rRAP")) %dopar% par.rapapp(i)   
 Sys.time()
-out_rap   = res.app(n.parallel, out_tmp)       # Collect results from cores
+out_rap   = res.app(n.parallel, out_tmp)       # Collect results from the cores
 
 # Close cluster
 stopCluster(cl)

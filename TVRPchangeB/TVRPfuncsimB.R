@@ -271,28 +271,17 @@ beta_sim = function(q.start, q.end){
 }
 
 # Function to simulate design matrix (X) with a change of rho after i = n.cp
-design_sim = function(r.start, r.end){
+design_sim = function(r){
   
   mu     = rep(0, n.param) # Mean is set to be 0
-  Sigma1 = matrix(0, nrow = n.param, ncol = n.param)   # Covariance matrix for i <= n.cp
-  Sigma2 = matrix(0, nrow = n.param, ncol = n.param)   # Covariance matrix for i > n.cp
+  Sigma  = matrix(0, nrow = n.param, ncol = n.param)   # Covariance matrix 
   
   for (i in 1:n.param) { 
     for (j in 1:n.param) {
       if (i == j){
-        Sigma1[i, j] = 1
+        Sigma[i, j] = 1
       } else {
-        Sigma1[i, j] = r.start^abs(i - j)
-      }
-    }
-  }
-  
-  for (i in 1:n.param) { 
-    for (j in 1:n.param) {
-      if (i == j){
-        Sigma2[i, j] = 1
-      } else {
-        Sigma2[i, j] = r.end^abs(i - j)
+        Sigma[i, j] = r^abs(i - j)
       }
     }
   }
@@ -300,45 +289,42 @@ design_sim = function(r.start, r.end){
   X = list()
   set.seed(seed1)
   for (i in 1:n.sim){
-    X1     = mvrnorm(n = n.cp, mu, Sigma1)             # Design matrix for i <= n.cp
-    X2     = mvrnorm(n = (n.obs - n.cp), mu, Sigma2)   # Design matrix for i > n.cp
-    X[[i]] = rbind(X1, X2)
+    X[[i]] = mvrnorm(n = n.obs, mu, Sigma)           # Design matrix 
   } 
   
   return(X)  
 }
 
 # Function to simulate error term with a change of variance after i = n.cp
-eps_sim = function(sd.start, sd.end) {  
+eps_sim = function(sd) {  
   
-  eps1  = list()   # Error term for i <= n.cp
+  eps   = list()   # Error term 
   set.seed(seed2)
   for (i in 1:n.sim){
-    eps1[[i]] = rnorm(n.cp, mean = 0, sd = sd.start)
+    eps[[i]] = rnorm(n.obs, mean = 0, sd = sd)
   } 
-  
-  eps2  = list()   # Error term for i > n.cp
-  set.seed(seed2)
-  for (i in 1:n.sim){
-    eps2[[i]] = rnorm((n.obs - n.cp), mean = 0, sd = sd.end)
-  }
-  
-  eps   = list()
-  for (i in 1:n.sim){
-    eps[[i]] = c(eps1[[i]],eps2[[i]])
-  }
   
   return(eps)  
 }
 
 # Function to compute all n.obs observations of Y
-Y_sim = function(sd.start, sd.end, q.start, q.end, r.start, r.end){
+Y_sim = function(sd, r){
   
+  eps   = eps_sim(sd)       # Simulate n.sim vectors of error term
+  X     <<- design_sim(r)   # Simulate n.sim designs (define X globally)
+  
+  # Specifiy the vector of parameters
+  b      = list()
+  tmp1   = rep(1, 5)
+  tmp2   = rep(0, n.param - length(tmp1))
+  b[[1]] = c(tmp1, tmp2)   # Coefficients for i <= n.cp
+  
+  tmp3   = seq(1, 0, -0.2)
+  tmp4   = rep(0, n.param - length(tmp3))
+  b[[2]] = c(tmp3, tmp4)   # Coefficients for i > n.cp
+  
+  # Simulate the response variable
   Y     = list()
-  eps   = eps_sim(sd.start, sd.end)       # Simulate n.sim vectors of error term
-  b     = beta_sim(q.start, q.end)        # Simulate n.sim vectors of beta
-  X     <<- design_sim(r.start, r.end)    # Simulate n.sim designs (define X globally)
-  
   Y1    = list()                          # Y for i <= n.cp
   for (i in 1:n.sim){
     Y.tmp1 = numeric(0)

@@ -7,7 +7,7 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 # Set working directory
-setwd("/Users/Lenka/Documents/IRTG 1792/TVP copy/TVRPchangeSQR")
+setwd("")
 
 # Install and load packages
 libraries = c("MASS", "lars", "scales", "doParallel", "rRAP", "lattice")

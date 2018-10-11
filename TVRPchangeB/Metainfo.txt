@@ -15,8 +15,7 @@ adaptive penalization, regression, simulation, plot, moving window, time-series,
 linear model'
 
 See also : 'TVRPchangeSQR, TVRPfrm, TVRPfmri, XFGTVP_BetaChange, XFGTVP_FRM, 
-XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
-SMSlassoridge, quantilelasso'
+XFGTVP_LambdaSim, TVPactiveset, TVPbetanorm, TVPdesign, TVPvariance’
 
 Author : Lenka Zboňáková
 

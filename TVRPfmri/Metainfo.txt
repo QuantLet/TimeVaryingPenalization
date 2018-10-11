@@ -16,8 +16,7 @@ Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv,
 adaptive penalization, regression, plot, moving window, time-series, fmri'
 
 See also : 'TVRPchangeSQR, TVRPchangeB, TVRPfrm, XFGTVP_BetaChange, XFGTVP_FRM, 
-XFGTVP_LambdaSim, MVAgrouplasso, MVAlassocontour, MVAlassoregress, SMSlassocar, 
-SMSlassoridge, quantilelasso'
+XFGTVP_LambdaSim, TVPactiveset, TVPbetanorm, TVPdesign, TVPvariance'
 
 Author : Lenka Zboňáková
 

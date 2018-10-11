@@ -20,7 +20,7 @@ source("TVRPfuncsim.r")
 # Simulation setup
 n.obs    = 400        # Number of observations
 n.param  = 20         # Number of parameters
-n.sim    = 1          # Number of simulations
+n.sim    = 100        # Number of simulations
 w        = 50         # Length of moving windows
 seed1    = 20150206   # Seed to simulate design matrix X
 seed2    = 20150602   # Seed to simulate error terms

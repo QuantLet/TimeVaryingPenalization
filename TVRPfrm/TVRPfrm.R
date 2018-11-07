@@ -3,7 +3,7 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 # Set working directory
-# setwd("")
+# setwd("/Users/Lenka/Documents/IRTG 1792/TVP/TVRPfrm")
 
 # Install and load packages
 libraries = c("MASS", "scales", "foreach", "doParallel", "lars", "rRAP")
@@ -80,6 +80,26 @@ lines(norm.rap, col = "blue", lty = 2, lwd = 1.5)
 legend("topright", c("BIC", "RAP"), col = c("black", "blue"),
        ncol = 2, cex = 0.9, lwd = 1.5, lty = c(1, 4, 2))
 
+# Plot daily close stock prices 
+tmpdata.stock = read.csv("100_firms_stocks.csv",sep=",") # FRM stock prices
+col.data      = colorRampPalette(c("darkblue", "darkblue", "red2"))(n.firm)
+stock.tmp     = tmpdata.stock[, -1]
+stock.new     = stock.tmp
+stock.order   = order(stock.tmp[1, ])
+for (i in 1:n.firm){
+  k              = stock.order[i]
+  stock.new[, i] = stock.tmp[, k]
+}
 
+# All of the stock prices for 100 companies
+plot(stock.new[, 1], type = "l",  col = alpha(col.data[1], 0.5), axes = FALSE, 
+     xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = "Stock price in USD",
+     cex.lab = 1.5, ylim = c(0, 650))
+axis(1, cex.axis = 1.5, labels = c(2008:2018), at = at.tmp)
+axis(2, cex.axis = 1.5)
+for (i in 2:100) {
+  lines(stock.new[, i], col = alpha(col.data[i], 0.5))
+}
+lines(stock.new[, 100], col = alpha(col.data[100], 0.5))
 
 

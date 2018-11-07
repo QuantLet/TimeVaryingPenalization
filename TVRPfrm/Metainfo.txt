@@ -10,7 +10,9 @@ called the real-time adaptive penalization (RAP). The input data are daily logar
 stock returns of 100 largest U.S. financial companies listed on NASDAQ. In the fitting 
 procedure, each of the selected companies is taken as
 a dependent variable and is regressed by means of the Lasso regression on the remaining 
-ones. The code plots the time series of the average penalization parameter, lambda.'
+ones. The code plots the time series of the average penalization parameter, lambda.
+Visualisation of daily stock prices of the financial companies from the dataset
+is also available.’
 
 Keywords : 'Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, 
 adaptive penalization, regression, plot, moving window, time-series, stock return'
@@ -22,7 +24,7 @@ Author : Lenka Zboňáková
 
 Submitted : 9 October 2018 by Lenka Zboňáková
 
-Datafile : 100_firms_returns_and_scaled_macro_2018-08-13.csv
+Datafile : 100_firms_returns_and_scaled_macro_2018-08-13.csv, 100_firms_stocks.csv
 
 Input: 
 - n.firm:      Number of companies (maximum is 100)

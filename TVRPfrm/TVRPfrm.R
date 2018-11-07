@@ -3,7 +3,7 @@ rm(list = ls(all = TRUE))
 graphics.off()
 
 # Set working directory
-# setwd("/Users/Lenka/Documents/IRTG 1792/TVP/TVRPfrm")
+# setwd("")
 
 # Install and load packages
 libraries = c("MASS", "scales", "foreach", "doParallel", "lars", "rRAP")

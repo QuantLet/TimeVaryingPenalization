@@ -80,7 +80,7 @@ lines(norm.rap, col = "blue", lty = 2, lwd = 1.5)
 legend("topright", c("BIC", "RAP"), col = c("black", "blue"),
        ncol = 2, cex = 0.9, lwd = 1.5, lty = c(1, 4, 2))
 
-# Plot daily close stock prices 
+# Load and plot daily close stock prices 
 tmpdata.stock = read.csv("100_firms_stocks.csv",sep=",") # FRM stock prices
 col.data      = colorRampPalette(c("darkblue", "darkblue", "red2"))(n.firm)
 stock.tmp     = tmpdata.stock[, -1]
@@ -91,7 +91,6 @@ for (i in 1:n.firm){
   stock.new[, i] = stock.tmp[, k]
 }
 
-# All of the stock prices for 100 companies
 plot(stock.new[, 1], type = "l",  col = alpha(col.data[1], 0.5), axes = FALSE, 
      xlab = "Year", frame = TRUE, cex.main = 1.5, ylab = "Stock price in USD",
      cex.lab = 1.5, ylim = c(0, 650))

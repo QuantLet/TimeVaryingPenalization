@@ -23,7 +23,7 @@ SMSlassocar, SMSlassoridge, quantilelasso'
 
 Author : Lenka Zbonakova
 
-Submitted: 
+Submitted: 23.11.2015
 
 Input: 
 - n.obs   : Number of observations to simulate

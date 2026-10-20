@@ -9,11 +9,11 @@ Name of QuantLet: TVRPfmri
 
 Published in: submitted to N/A
 
-Description: Performs the Lasso regression with two distinct algorithms. The first one
+Description: Performs the Lasso regression with two distinct algorithms. The first one uses moving window method and the Bayesian information criterion (BIC) or the generalized cross-validation (GCV) to calibrate the penalty parameter (lambda), and the second is called the real-time adaptive penalization (RAP). The input data are fMRI data collected as part of the Human Connectome Project. The dataset consists of measurements taken during an Emotion task. In the fitting procedure, each of the selected brain regions is taken as a dependent variable and is regressed by means of the Lasso regression on the remaining ones. The code plots the time series of the average penalization parameter, lambda.
 
-Keywords: Lasso, shrinkage, L1-norm penalty, change point, bic, gcv,
+Keywords: Lasso, shrinkage, L1-norm penalty, change point, bic, gcv, adaptive penalization, regression, plot, moving window, time-series, fmri
 
-See also: TVRPchangeSQR, TVRPchangeB, TVRPfrm, XFGTVP_BetaChange, XFGTVP_FRM,
+See also: TVRPchangeSQR, TVRPchangeB, TVRPfrm, XFGTVP_BetaChange, XFGTVP_FRM, XFGTVP_LambdaSim, TVPactiveset, TVPbetanorm, TVPdesign, TVPvariance
 
 Author: Lenka Zboňáková
 
